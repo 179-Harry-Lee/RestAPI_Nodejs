@@ -6,6 +6,9 @@ var bodyParser = require("body-parser");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 
+const authorRoute = require("./routes/author");
+const bookRoute = require("./routes/book");
+
 dotenv.config();
 //connect db
 mongoose
@@ -20,6 +23,9 @@ mongoose
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cors());
 app.use(morgan("common"));
+
+app.use("/v1/author", authorRoute);
+app.use("/v1/book", bookRoute);
 
 app.get("/api", (req, res) => {
   res.json({
